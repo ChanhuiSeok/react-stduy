@@ -1,57 +1,47 @@
-import React, {Component} from 'react';
+import React, { useState } from 'react';
 
-class EventPractice extends Component{
+const EventPractice = () => {
 
-    state ={
-        userName: '',
-        message: ''
+    const [username, setUsername] = useState('');
+    const [message, setMessage] = useState('');
+
+    // onChange
+    const onChangeUsername = (e) => {setUsername(e.target.value)};
+    const onChangeMessage = (e) => {setMessage(e.target.value)};
+
+    const onClick = () => {
+        alert(username + ': ' + message);
+        setUsername('');
+        setMessage('');
     }
-
-    handleChange = (e) =>{
-        this.setState({
-            [e.target.name]: e.target.value
-        });
-    }
-
-    handleClick = (e) =>{
-        alert(this.state.userName + ': ' + this.state.message)
-        this.setState({
-            userName:'',
-            message:''
-        })
-    }
-
-    handleKeyPress = (e) =>{
-        if (e.key === 'Enter'){
-            this.handleClick();
+    const onKeyPress = (e) => {
+        if (e === 'Enter'){
+            onClick();
         }
     }
 
-    render(){
-        return(
-            <div>
-                <h1>이벤트 연습</h1>
-                <input
-                    type="text"
-                    name="userName"
-                    placeholder="사용자명"
-                    value={this.state.userName}
-                    onChange={this.handleChange}
-                />
-                <input
-                    type="text"
-                    name="message"
-                    placeholder="아무거나 입력"
-                    value={this.state.message}
-                    onChange={this.handleChange}
-                    onKeyPress={this.handleKeyPress}
-                />
-                <button onClick={this.handleClick}>
-                확인
-                </button>
-            </div>
-        );
-    }
-}
+    return (
+        <div>
+            <h1>이벤트 연습</h1>
+            <input
+                type="text"
+                name="username"
+                placeholder="사용자명"
+                value={username}
+                onChange={onChangeUsername}
+            />
+            <input
+                type="text"
+                name="message"
+                placeholder="아무 말이나 입력"
+                value={message}
+                onChange={onChangeMessage}
+                onKeyPress={onKeyPress}
+            />
+            <button onClick={onClick}>확인</button>
+
+        </div>
+    );
+};
 
 export default EventPractice;
